@@ -1012,6 +1012,489 @@ input[type=text]:focus,input[type=date]:focus,input[type=time]:focus,select:focu
   }
 }
 
+
+
+/* ===== LIVE SCORES & FOOTBALL API ===== */
+.live-ticker{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 14px;
+  background:linear-gradient(90deg,#fff8f8 0%,#fff 50%,#f0fff4 100%);
+  border:1px solid var(--border);
+  border-radius:10px;
+  margin-bottom:12px;
+  overflow-x:auto;
+  white-space:nowrap;
+  font-size:13px;
+  scrollbar-width:thin;
+}
+.live-ticker-label{
+  font-family:'Barlow',sans-serif;
+  font-weight:900;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  color:var(--muted);
+  flex-shrink:0;
+}
+.live-ticker-item{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:6px 12px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-family:'Barlow',sans-serif;
+  font-weight:600;
+  font-size:13px;
+  flex-shrink:0;
+}
+.live-ticker-item.is-live{
+  border-color:#ff3158;
+  background:#fff5f7;
+}
+.live-ticker-item.is-finished{
+  border-color:var(--green);
+  background:#f0fdf4;
+}
+.live-ticker-score{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:20px;
+  color:#111;
+  min-width:50px;
+  text-align:center;
+}
+
+/* Status badges */
+.game-status-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  font-family:'Barlow',sans-serif;
+  font-weight:800;
+  font-size:11px;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  padding:3px 10px;
+  border-radius:99px;
+  margin-bottom:6px;
+}
+.game-status-live{
+  background:#ff3158;
+  color:#fff;
+  animation:statusPulse 1.5s ease-in-out infinite;
+}
+.game-status-live::before{
+  content:'';
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#fff;
+  animation:dotPulse 1s ease-in-out infinite;
+}
+.game-status-halftime{
+  background:#ff8f00;
+  color:#fff;
+}
+.game-status-finished{
+  background:#eefaf4;
+  color:var(--green);
+  border:1px solid rgba(22,163,107,.3);
+}
+.game-status-upcoming{
+  background:#fff8eb;
+  color:#d97706;
+  border:1px solid rgba(217,119,6,.3);
+}
+.game-status-today{
+  background:#eff6ff;
+  color:#2563eb;
+  border:1px solid rgba(37,99,235,.2);
+}
+@keyframes statusPulse{0%,100%{opacity:1}50%{opacity:.85}}
+@keyframes dotPulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* Live score display in match card */
+.phase-ref-livescore{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:24px;
+  color:#ff3158;
+  font-weight:900;
+  text-align:center;
+  line-height:1.1;
+  padding:4px 0;
+}
+.phase-ref-livescore .live-minute{
+  font-family:'Barlow',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  color:#ff3158;
+  margin-left:6px;
+}
+.phase-ref-match.phase-ref-live{
+  border-color:#ff3158 !important;
+  border-style:solid !important;
+  background:#fffbfc !important;
+}
+
+/* API controls */
+.api-refresh-btn{
+  background:transparent;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:3px 8px;
+  font-size:11px;
+  color:var(--muted);
+  cursor:pointer;
+  font-family:'Barlow',sans-serif;
+  font-weight:700;
+  flex-shrink:0;
+}
+.api-refresh-btn:hover{
+  border-color:var(--gold);
+  color:var(--gold);
+}
+.api-status{
+  font-size:10px;
+  color:var(--muted);
+  font-weight:600;
+  flex-shrink:0;
+}
+
+
+/* ===== PREDICTION DEADLINE NOTE ===== */
+.prediction-deadline-note{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.35;
+  text-align:center;
+  margin-top:6px;
+}
+.prediction-deadline-note.locked{color:var(--red);font-weight:800}
+.prediction-deadline-note.open{color:var(--green);font-weight:800}
+@media(max-width:760px){
+  .prediction-deadline-note{font-size:13px;margin-top:4px;padding:0 6px}
+}
+
+
+
+/* ===== KNOCKOUT BRACKET LABELS ===== */
+.knockout-match-meta{
+  display:block;
+  margin-top:6px;
+  font-size:12px;
+  line-height:1.25;
+  color:#6f7787;
+  font-weight:700;
+}
+.knockout-match-meta strong{
+  color:#20222b;
+  font-weight:900;
+}
+.bracket-slot-badge{
+  width:42px;
+  height:30px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:4px;
+  background:#eef1f7;
+  color:#6f7787;
+  font-weight:900;
+  font-size:18px;
+  box-shadow:0 2px 6px rgba(0,0,0,.08);
+}
+.team-flag-small.bracket-slot-badge{
+  width:22px;
+  height:16px;
+  font-size:10px;
+  margin-right:6px;
+  vertical-align:-3px;
+}
+.phase-ref-flag.bracket-slot-badge{
+  width:44px;
+  height:32px;
+  min-height:32px;
+  margin:0 auto;
+  font-size:18px;
+}
+.bracket-helper-note{
+  margin-top:5px;
+  font-size:11px;
+  color:#858b99;
+  line-height:1.2;
+}
+@media(max-width:760px){
+  .knockout-match-meta{font-size:11px;margin-top:5px;}
+  .phase-ref-flag.bracket-slot-badge{width:34px!important;height:24px!important;min-height:24px!important;font-size:14px!important;}
+  .bracket-helper-note{display:none;}
+}
+
+
+
+/* ===== FINAL MOBILE CARD FIX: keep flags, codes and inputs inside the card ===== */
+@media(max-width:760px){
+  .phase-ref{
+    overflow:hidden !important;
+  }
+
+  .phase-content{
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+
+  .phase-ref-grid{
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:14px !important;
+    width:100% !important;
+    overflow:hidden !important;
+  }
+
+  .phase-ref-match{
+    box-sizing:border-box !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow:hidden !important;
+    padding:16px 10px 14px !important;
+  }
+
+  .phase-ref-time{
+    width:100% !important;
+    max-width:100% !important;
+    margin-bottom:8px !important;
+    font-size:20px !important;
+    line-height:1.15 !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .phase-ref-body{
+    display:grid !important;
+    grid-template-columns:minmax(64px,74px) minmax(142px,1fr) minmax(64px,74px) !important;
+    grid-template-areas:"home center away" !important;
+    align-items:start !important;
+    justify-items:center !important;
+    gap:8px !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow:hidden !important;
+  }
+
+  .phase-ref-home{
+    grid-area:home !important;
+  }
+
+  .phase-ref-away{
+    grid-area:away !important;
+  }
+
+  .phase-ref-team{
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:5px !important;
+    width:100% !important;
+    max-width:74px !important;
+    min-width:0 !important;
+    margin:0 !important;
+    text-align:center !important;
+    overflow:hidden !important;
+  }
+
+  .phase-ref-flag.flag-icon-wrap{
+    width:30px !important;
+    height:22px !important;
+    min-width:30px !important;
+    min-height:22px !important;
+    flex:0 0 30px !important;
+    margin:0 !important;
+    border-radius:3px !important;
+  }
+
+  .phase-ref-flag.flag-fallback{
+    font-size:20px !important;
+    min-width:26px !important;
+    min-height:22px !important;
+    flex:0 0 26px !important;
+    margin:0 !important;
+  }
+
+  .phase-ref-code{
+    display:block !important;
+    font-size:17px !important;
+    line-height:1 !important;
+    margin:0 !important;
+    max-width:36px !important;
+    min-width:0 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:clip !important;
+  }
+
+  .phase-ref-name,
+  .bracket-helper-note{
+    display:none !important;
+  }
+
+  .phase-ref-center{
+    grid-area:center !important;
+    grid-column:auto !important;
+    grid-row:auto !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    pointer-events:auto !important;
+    overflow:visible !important;
+  }
+
+  .phase-ref-score{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:6px !important;
+    width:100% !important;
+    max-width:156px !important;
+    min-width:0 !important;
+  }
+
+  .phase-ref-score input{
+    box-sizing:border-box !important;
+    width:52px !important;
+    height:46px !important;
+    min-width:52px !important;
+    max-width:52px !important;
+    font-size:23px !important;
+    padding:2px !important;
+    pointer-events:auto !important;
+  }
+
+  .phase-ref-vs{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    width:26px !important;
+    min-width:26px !important;
+    max-width:26px !important;
+    font-size:20px !important;
+    line-height:1 !important;
+    font-weight:900 !important;
+    text-align:center !important;
+  }
+
+  .phase-ref-save{
+    order:2 !important;
+    display:block !important;
+    width:auto !important;
+    max-width:100% !important;
+    margin:4px auto 0 !important;
+    text-align:center !important;
+    font-size:22px !important;
+    line-height:1.05 !important;
+    pointer-events:auto !important;
+  }
+
+  .phase-ref-status,
+  .prediction-deadline-note,
+  .phase-ref-result{
+    order:3 !important;
+    width:100% !important;
+    max-width:100% !important;
+    text-align:center !important;
+    font-size:14px !important;
+    line-height:1.25 !important;
+    margin:0 auto !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .phase-ref-preds-btn{
+    order:4 !important;
+    display:block !important;
+    width:auto !important;
+    max-width:100% !important;
+    margin:4px auto 0 !important;
+    text-align:center !important;
+    font-size:23px !important;
+    line-height:1.05 !important;
+    pointer-events:auto !important;
+  }
+
+  .phase-admin-tools{
+    order:5 !important;
+    display:flex !important;
+    justify-content:center !important;
+    flex-wrap:wrap !important;
+    gap:8px !important;
+    width:100% !important;
+    max-width:100% !important;
+    margin-top:6px !important;
+    pointer-events:auto !important;
+  }
+
+  .phase-admin-edit{
+    max-width:140px !important;
+    min-width:0 !important;
+  }
+}
+
+@media(max-width:390px){
+  .phase-ref-match{
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+
+  .phase-ref-body{
+    grid-template-columns:minmax(58px,66px) minmax(132px,1fr) minmax(58px,66px) !important;
+    gap:6px !important;
+  }
+
+  .phase-ref-team{
+    max-width:66px !important;
+    gap:4px !important;
+  }
+
+  .phase-ref-flag.flag-icon-wrap{
+    width:27px !important;
+    height:20px !important;
+    min-width:27px !important;
+    min-height:20px !important;
+    flex-basis:27px !important;
+  }
+
+  .phase-ref-code{
+    font-size:16px !important;
+    max-width:34px !important;
+  }
+
+  .phase-ref-score{
+    max-width:140px !important;
+    gap:4px !important;
+  }
+
+  .phase-ref-score input{
+    width:48px !important;
+    min-width:48px !important;
+    max-width:48px !important;
+    height:44px !important;
+    font-size:22px !important;
+  }
+
+  .phase-ref-vs{
+    width:24px !important;
+    min-width:24px !important;
+    max-width:24px !important;
+    font-size:18px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1050,9 +1533,14 @@ input[type=text]:focus,input[type=date]:focus,input[type=time]:focus,select:focu
   <div class="sync-bar">
     <div class="sync-dot" id="sync-dot"></div>
     <span id="sync-label">Conectando ao Firebase...</span>
+    <span id="api-status-label" class="api-status" style="margin-left:8px"></span>
+    <button class="api-refresh-btn" onclick="manualAPIRefresh()" title="Atualizar placares da API">↻</button>
     <span style="margin-left:auto;font-size:11px" id="user-label"></span>
     <button class="top-logout-btn" onclick="logoutCurrentUser()">Sair</button>
   </div>
+
+  <!-- LIVE TICKER -->
+  <div id="live-ticker" class="live-ticker" style="display:none"></div>
 
   <div class="header">
     <div class="header-title"><div class="wc-logo" aria-label="Logo visual Copa 2026"><span class="wc-main">26</span><span class="wc-sub">WORLD CUP</span></div><h1>BOLÃO DA COPA 2026</h1></div>
@@ -1097,6 +1585,7 @@ input[type=text]:focus,input[type=date]:focus,input[type=time]:focus,select:focu
         <div class="special-item"><label>Terceiro lugar 🥉</label><input type="text" id="sp-third" placeholder="ex: Alemanha"></div>
         <div class="special-item"><label>Artilheiro ⚽</label><input type="text" id="sp-top" placeholder="ex: Mbappé"></div>
         <div class="special-item"><label>Melhor jogador 🌟</label><input type="text" id="sp-mvp" placeholder="ex: Rodri"></div>
+        <div class="special-item"><label>Melhor goleiro 🧤</label><input type="text" id="sp-keeper" placeholder="ex: Alisson"></div>
       </div>
       <button class="btn btn-gold" id="save-special-btn" style="margin-top:12px;width:100%" onclick="saveSpecial()">💾 Salvar palpites especiais</button>
       <div class="small-note" id="special-save-note">Preencha seus palpites e clique em salvar.</div>
@@ -1155,6 +1644,7 @@ input[type=text]:focus,input[type=date]:focus,input[type=time]:focus,select:focu
         <div class="special-result-item"><label>Terceiro lugar 🥉</label><input type="text" id="actual-third" placeholder="ex: Alemanha"></div>
         <div class="special-result-item"><label>Artilheiro ⚽</label><input type="text" id="actual-top" placeholder="ex: Mbappé"></div>
         <div class="special-result-item"><label>Melhor jogador 🌟</label><input type="text" id="actual-mvp" placeholder="ex: Rodri"></div>
+        <div class="special-result-item"><label>Melhor goleiro 🧤</label><input type="text" id="actual-keeper" placeholder="ex: Alisson"></div>
       </div>
       <button class="btn btn-gold" style="margin-top:12px;width:100%" onclick="saveSpecialResults()">💾 Salvar resultados finais</button>
       <div class="small-note">Dica: escreva os nomes do mesmo jeito que os participantes usaram nos palpites especiais para evitar divergências.</div>
@@ -1185,6 +1675,7 @@ input[type=text]:focus,input[type=date]:focus,input[type=time]:focus,select:focu
           <div class="pts-item"><label>Terceiro lugar</label><input type="number" id="pts-third" value="10" min="0"></div>
           <div class="pts-item"><label>Artilheiro</label><input type="number" id="pts-top" value="15" min="0"></div>
           <div class="pts-item"><label>Melhor jogador</label><input type="number" id="pts-mvp" value="10" min="0"></div>
+          <div class="pts-item"><label>Melhor goleiro</label><input type="number" id="pts-keeper" value="10" min="0"></div>
         </div>
       </div>
       <div id="admin-config-btns" style="margin-top:12px;display:none">
@@ -1287,13 +1778,13 @@ let myName = null;
 let isAdmin = false;
 const DEFAULT_PTS = {
   exact:5, winner:3, goalsTeam:1, diff:1,
-  champ:20, second:15, third:10, top:15, mvp:10
+  champ:20, second:15, third:10, top:15, mvp:10, keeper:10
 };
 let state = { users:{}, players:{}, games:{}, predictions:{}, special:{}, specialResults:{}, settings:{specialLocked:false}, pts:{...DEFAULT_PTS}};
 const COLORS = 10;
 const ENTRY_CODE = 'COPA2026';
 const ADMIN_LOGIN = 'ADMIN';
-const ADMIN_PASSWORD = '9999';
+const ADMIN_PASSWORD = '981408440';
 const HARD_CODED_ADMIN_ID = 'admin';
 const CURRENT_APP_VERSION = 'login_flags_reset_v4_app_zerado_teste';
 let editingGameId = null;
@@ -1303,9 +1794,51 @@ let currentGameView = 'phase';
 let openPhaseSections = {};
 let selectedPhaseRound = 'Fase de Grupos';
 let selectedPhaseGroup = 'Grupo A';
+
+
+// ─── Knockout bracket labels ─────────────────────────────────────
+// These labels mirror the official FIFA knockout bracket and are used to make
+// the admin experience easier when replacing "A definir" with the real teams.
+const KNOCKOUT_META = {
+  wc2026_073:{matchNumber:73, matchLabel:'Segunda fase 1', bracketHome:'2º A', bracketAway:'2º B', bracketFull:'2º Grupo A x 2º Grupo B'},
+  wc2026_074:{matchNumber:74, matchLabel:'Segunda fase 2', bracketHome:'1º E', bracketAway:'3º A/B/C/D/F', bracketFull:'1º Grupo E x 3º dos grupos A/B/C/D/F'},
+  wc2026_075:{matchNumber:75, matchLabel:'Segunda fase 3', bracketHome:'1º F', bracketAway:'2º C', bracketFull:'1º Grupo F x 2º Grupo C'},
+  wc2026_076:{matchNumber:76, matchLabel:'Segunda fase 4', bracketHome:'1º C', bracketAway:'2º F', bracketFull:'1º Grupo C x 2º Grupo F'},
+  wc2026_077:{matchNumber:77, matchLabel:'Segunda fase 5', bracketHome:'1º I', bracketAway:'3º C/D/F/G/H', bracketFull:'1º Grupo I x 3º dos grupos C/D/F/G/H'},
+  wc2026_078:{matchNumber:78, matchLabel:'Segunda fase 6', bracketHome:'2º E', bracketAway:'2º I', bracketFull:'2º Grupo E x 2º Grupo I'},
+  wc2026_079:{matchNumber:79, matchLabel:'Segunda fase 7', bracketHome:'1º A', bracketAway:'3º C/E/F/H/I', bracketFull:'1º Grupo A x 3º dos grupos C/E/F/H/I'},
+  wc2026_080:{matchNumber:80, matchLabel:'Segunda fase 8', bracketHome:'1º L', bracketAway:'3º E/H/I/J/K', bracketFull:'1º Grupo L x 3º dos grupos E/H/I/J/K'},
+  wc2026_081:{matchNumber:81, matchLabel:'Segunda fase 9', bracketHome:'1º D', bracketAway:'3º B/E/F/I/J', bracketFull:'1º Grupo D x 3º dos grupos B/E/F/I/J'},
+  wc2026_082:{matchNumber:82, matchLabel:'Segunda fase 10', bracketHome:'1º G', bracketAway:'3º A/E/H/I/J', bracketFull:'1º Grupo G x 3º dos grupos A/E/H/I/J'},
+  wc2026_083:{matchNumber:83, matchLabel:'Segunda fase 11', bracketHome:'2º K', bracketAway:'2º L', bracketFull:'2º Grupo K x 2º Grupo L'},
+  wc2026_084:{matchNumber:84, matchLabel:'Segunda fase 12', bracketHome:'1º H', bracketAway:'2º J', bracketFull:'1º Grupo H x 2º Grupo J'},
+  wc2026_085:{matchNumber:85, matchLabel:'Segunda fase 13', bracketHome:'1º B', bracketAway:'3º E/F/G/I/J', bracketFull:'1º Grupo B x 3º dos grupos E/F/G/I/J'},
+  wc2026_086:{matchNumber:86, matchLabel:'Segunda fase 14', bracketHome:'1º J', bracketAway:'2º H', bracketFull:'1º Grupo J x 2º Grupo H'},
+  wc2026_087:{matchNumber:87, matchLabel:'Segunda fase 15', bracketHome:'1º K', bracketAway:'3º D/E/I/J/L', bracketFull:'1º Grupo K x 3º dos grupos D/E/I/J/L'},
+  wc2026_088:{matchNumber:88, matchLabel:'Segunda fase 16', bracketHome:'2º D', bracketAway:'2º G', bracketFull:'2º Grupo D x 2º Grupo G'},
+  wc2026_089:{matchNumber:89, matchLabel:'Oitavas 1', bracketHome:'Venc. J74', bracketAway:'Venc. J77', bracketFull:'Vencedor Jogo 74 x Vencedor Jogo 77'},
+  wc2026_090:{matchNumber:90, matchLabel:'Oitavas 2', bracketHome:'Venc. J73', bracketAway:'Venc. J75', bracketFull:'Vencedor Jogo 73 x Vencedor Jogo 75'},
+  wc2026_091:{matchNumber:91, matchLabel:'Oitavas 3', bracketHome:'Venc. J76', bracketAway:'Venc. J78', bracketFull:'Vencedor Jogo 76 x Vencedor Jogo 78'},
+  wc2026_092:{matchNumber:92, matchLabel:'Oitavas 4', bracketHome:'Venc. J79', bracketAway:'Venc. J80', bracketFull:'Vencedor Jogo 79 x Vencedor Jogo 80'},
+  wc2026_093:{matchNumber:93, matchLabel:'Oitavas 5', bracketHome:'Venc. J83', bracketAway:'Venc. J84', bracketFull:'Vencedor Jogo 83 x Vencedor Jogo 84'},
+  wc2026_094:{matchNumber:94, matchLabel:'Oitavas 6', bracketHome:'Venc. J81', bracketAway:'Venc. J82', bracketFull:'Vencedor Jogo 81 x Vencedor Jogo 82'},
+  wc2026_095:{matchNumber:95, matchLabel:'Oitavas 7', bracketHome:'Venc. J86', bracketAway:'Venc. J88', bracketFull:'Vencedor Jogo 86 x Vencedor Jogo 88'},
+  wc2026_096:{matchNumber:96, matchLabel:'Oitavas 8', bracketHome:'Venc. J85', bracketAway:'Venc. J87', bracketFull:'Vencedor Jogo 85 x Vencedor Jogo 87'},
+  wc2026_097:{matchNumber:97, matchLabel:'Quartas 1', bracketHome:'Venc. J89', bracketAway:'Venc. J90', bracketFull:'Vencedor Jogo 89 x Vencedor Jogo 90'},
+  wc2026_098:{matchNumber:98, matchLabel:'Quartas 2', bracketHome:'Venc. J93', bracketAway:'Venc. J94', bracketFull:'Vencedor Jogo 93 x Vencedor Jogo 94'},
+  wc2026_099:{matchNumber:99, matchLabel:'Quartas 3', bracketHome:'Venc. J91', bracketAway:'Venc. J92', bracketFull:'Vencedor Jogo 91 x Vencedor Jogo 92'},
+  wc2026_100:{matchNumber:100, matchLabel:'Quartas 4', bracketHome:'Venc. J95', bracketAway:'Venc. J96', bracketFull:'Vencedor Jogo 95 x Vencedor Jogo 96'},
+  wc2026_101:{matchNumber:101, matchLabel:'Semifinal 1', bracketHome:'Venc. J97', bracketAway:'Venc. J98', bracketFull:'Vencedor Jogo 97 x Vencedor Jogo 98'},
+  wc2026_102:{matchNumber:102, matchLabel:'Semifinal 2', bracketHome:'Venc. J99', bracketAway:'Venc. J100', bracketFull:'Vencedor Jogo 99 x Vencedor Jogo 100'},
+  wc2026_103:{matchNumber:103, matchLabel:'Disputa de 3º lugar', bracketHome:'Perd. J101', bracketAway:'Perd. J102', bracketFull:'Perdedor Jogo 101 x Perdedor Jogo 102'},
+  wc2026_104:{matchNumber:104, matchLabel:'Final', bracketHome:'Venc. J101', bracketAway:'Venc. J102', bracketFull:'Vencedor Jogo 101 x Vencedor Jogo 102'}
+};
 let pendingForcedUserId = null;
 let lastRankPositions = {};
 let rankingInitialized = false;
+let liveAPIData = {};
+let livePollingTimer = null;
+let lastAPIFetchTime = null;
 // O primeiro participante criado vira admin automaticamente.
 // Atenção: essas senhas ficam no front-end e servem para um bolão fechado entre amigos.
 // Para uso público, prefira Firebase Authentication + custom claims para admin.
@@ -1351,7 +1884,7 @@ function ensureHardcodedAdminInFirebase(){
 function startHardcodedAdminSession(){
   const adminUser = hardcodedAdminUser();
   // Login ADMIN fica enraizado no HTML: mesmo se o Firebase estiver sem o usuário admin
-  // ou a senha tiver sido resetada por engano, ADMIN / 9999 sempre entra como administrador.
+  // ou a senha tiver sido resetada por engano, ADMIN / 981408440 sempre entra como administrador.
   ensureHardcodedAdminInFirebase().catch(err=>console.warn('Não foi possível sincronizar ADMIN no Firebase:', err)).finally(()=>{
     startSession(adminUser);
   });
@@ -1441,21 +1974,23 @@ function startApp(){
   const profileNameInput = document.getElementById('profile-name-input');
   if(profileNameInput) profileNameInput.value = myName || '';
   setupListeners();
+  startLivePolling();
 }
 function bootstrapAppData(){
   return db.ref('settings/appVersion').once('value').then(snap=>{
     if(snap.val() === CURRENT_APP_VERSION) return;
     const adminUser = hardcodedAdminUser();
+
+    // Bootstrap seguro:
+    // - Garante apenas o ADMIN fixo e a versão do app.
+    // - NÃO apaga palpites, palpites especiais, resultados finais, ranking, jogos ou usuários existentes.
+    // - A única rotina que deve apagar palpites é resetAllPredictions(), com confirmação explícita do admin.
     const updates = {
-      users: {[HARD_CODED_ADMIN_ID]: adminUser},
-      players: {[HARD_CODED_ADMIN_ID]: {id:HARD_CODED_ADMIN_ID, name:'ADMIN', colorIdx:0, admin:true}},
-      predictions: null,
-      special: null,
-      specialResults: null,
-      rankingHistory: null,
-      'settings/appVersion': CURRENT_APP_VERSION,
-      'settings/specialLocked': false
+      ['users/' + HARD_CODED_ADMIN_ID]: adminUser,
+      ['players/' + HARD_CODED_ADMIN_ID]: {id:HARD_CODED_ADMIN_ID, name:'ADMIN', colorIdx:0, admin:true},
+      'settings/appVersion': CURRENT_APP_VERSION
     };
+
     return db.ref().update(updates);
   }).catch(err=>console.error('Erro no bootstrap:', err));
 }
@@ -1479,11 +2014,11 @@ function setupListeners(){
   db.ref('pts').on('value', snap => {
     const savedPts = snap.val() || {};
     state.pts = {...DEFAULT_PTS, ...savedPts};
-    const needsScoringMigration = Object.keys(DEFAULT_PTS).some(k => Number(state.pts[k]) !== Number(DEFAULT_PTS[k]));
-    if(needsScoringMigration){
-      state.pts = {...DEFAULT_PTS};
-      db.ref('pts').update(DEFAULT_PTS);
-    }
+    const missingPts = {};
+    Object.keys(DEFAULT_PTS).forEach(k => {
+      if(savedPts[k] === undefined || savedPts[k] === null || savedPts[k] === '') missingPts[k] = DEFAULT_PTS[k];
+    });
+    if(Object.keys(missingPts).length) db.ref('pts').update(missingPts);
     loadPtsUI();
     renderMySpecialScore();
     if(document.getElementById('tab-regras').classList.contains('hidden')===false) renderRules();
@@ -1752,6 +2287,48 @@ function teamInlineHTML(team){
   return `${teamFlagHTML(team,'team-flag-small')}${escapeHTML(team)}`;
 }
 
+function getKnockoutMeta(g){
+  if(!g) return null;
+  return KNOCKOUT_META[g.id] || (g.matchNumber ? Object.values(KNOCKOUT_META).find(m=>Number(m.matchNumber)===Number(g.matchNumber)) : null) || null;
+}
+function isTbdTeam(team){ return normalizeText(team) === 'a definir' || !String(team||'').trim(); }
+function knockoutSlot(g, side){
+  const meta = getKnockoutMeta(g);
+  if(!meta) return '';
+  return side === 'home' ? (g.bracketHome || meta.bracketHome || '') : (g.bracketAway || meta.bracketAway || '');
+}
+function displayTeamName(g, side){
+  const team = side === 'home' ? g.home : g.away;
+  const slot = knockoutSlot(g, side);
+  return isTbdTeam(team) && slot ? slot : team;
+}
+function displayTeamCode(g, side){
+  const team = side === 'home' ? g.home : g.away;
+  const slot = knockoutSlot(g, side);
+  return isTbdTeam(team) && slot ? slot : teamCode(team);
+}
+function gameFlagHTML(g, side, cls='team-flag'){
+  const team = side === 'home' ? g.home : g.away;
+  const slot = knockoutSlot(g, side);
+  if(isTbdTeam(team) && slot){
+    return `<span class="${cls} bracket-slot-badge" title="${escapeHTML(slot)}">?</span>`;
+  }
+  return teamFlagHTML(team, cls);
+}
+function gameTeamHTML(g, side){
+  return `<div class="team-display">${gameFlagHTML(g,side,'team-flag')}<div class="team-name">${escapeHTML(displayTeamName(g,side))}</div></div>`;
+}
+function gameTeamInlineHTML(g, side){
+  return `${gameFlagHTML(g,side,'team-flag-small')}${escapeHTML(displayTeamName(g,side))}`;
+}
+function knockoutMetaHTML(g){
+  const meta = getKnockoutMeta(g);
+  if(!meta) return '';
+  const label = g.matchLabel || meta.matchLabel;
+  const full = g.bracketFull || meta.bracketFull || '';
+  return `<span class="knockout-match-meta"><strong>Jogo ${meta.matchNumber} · ${escapeHTML(label)}</strong>${full ? ` · ${escapeHTML(full)}` : ''}</span>`;
+}
+
 
 function getGameStart(g){
   if(!g || !g.date) return null;
@@ -1763,6 +2340,24 @@ function getPredictionDeadline(g){
   const start = getGameStart(g);
   if(!start) return null;
   return new Date(start.getTime() - 60*60*1000);
+}
+function formatPredictionDeadline(g){
+  const deadline = getPredictionDeadline(g);
+  if(!deadline) return '';
+  return deadline.toLocaleString('pt-BR', {
+    day:'2-digit',
+    month:'2-digit',
+    hour:'2-digit',
+    minute:'2-digit'
+  });
+}
+function predictionDeadlineNote(g){
+  const hasResult = g && g.actualHome!==null && g.actualHome!==undefined && g.actualAway!==null && g.actualAway!==undefined;
+  if(hasResult) return 'Jogo encerrado: palpites bloqueados.';
+  if(g && g.predictionLockOverride === 'locked') return 'Palpites travados manualmente pelo admin.';
+  if(g && g.predictionLockOverride === 'unlocked') return 'Palpites liberados manualmente pelo admin.';
+  const formatted = formatPredictionDeadline(g);
+  return formatted ? `Palpites abertos até ${formatted} BRT.` : 'Palpites abertos até 1 hora antes do jogo.';
 }
 function isGameLocked(g){
   if(!g) return false;
@@ -1987,8 +2582,8 @@ const WORLD_CUP_2026_FIXTURES = [
   {home:'United States',away:'Paraguay',stage:'Grupo D',utc:'2026-06-13T01:00:00Z',venue:'Los Angeles Stadium, Los Angeles'},
   {home:'Qatar',away:'Switzerland',stage:'Grupo B',utc:'2026-06-13T19:00:00Z',venue:'San Francisco Bay Area Stadium, San Francisco'},
   {home:'Brazil',away:'Morocco',stage:'Grupo C',utc:'2026-06-13T22:00:00Z',venue:'New York New Jersey Stadium, New Jersey'},
-  {home:'Haiti',away:'Scotland',stage:'Grupo C',utc:'2026-06-14T00:30:00Z',venue:'Boston Stadium, Boston'},
-  {home:'Australia',away:'Turkiye',stage:'Grupo D',utc:'2026-06-13T04:00:00Z',venue:'BC Place, Vancouver'},
+  {home:'Haiti',away:'Scotland',stage:'Grupo C',utc:'2026-06-14T01:00:00Z',venue:'Boston Stadium, Boston'},
+  {home:'Australia',away:'Turkiye',stage:'Grupo D',utc:'2026-06-14T04:00:00Z',venue:'BC Place, Vancouver'},
   {home:'Germany',away:'Curacao',stage:'Grupo E',utc:'2026-06-14T17:00:00Z',venue:'Houston Stadium, Houston'},
   {home:'Netherlands',away:'Japan',stage:'Grupo F',utc:'2026-06-14T20:00:00Z',venue:'Dallas Stadium, Dallas'},
   {home:'Ivory Coast',away:'Ecuador',stage:'Grupo E',utc:'2026-06-14T23:00:00Z',venue:'Philadelphia Stadium, Philadelphia'},
@@ -2000,7 +2595,7 @@ const WORLD_CUP_2026_FIXTURES = [
   {home:'France',away:'Senegal',stage:'Grupo I',utc:'2026-06-16T19:00:00Z',venue:'New York New Jersey Stadium, New Jersey'},
   {home:'Iraq',away:'Norway',stage:'Grupo I',utc:'2026-06-16T22:00:00Z',venue:'Boston Stadium, Boston'},
   {home:'Argentina',away:'Algeria',stage:'Grupo J',utc:'2026-06-17T01:00:00Z',venue:'Kansas City Stadium, Kansas City'},
-  {home:'Austria',away:'Jordan',stage:'Grupo J',utc:'2026-06-16T04:00:00Z',venue:'San Francisco Bay Area Stadium, San Francisco'},
+  {home:'Austria',away:'Jordan',stage:'Grupo J',utc:'2026-06-17T04:00:00Z',venue:'San Francisco Bay Area Stadium, San Francisco'},
   {home:'Portugal',away:'DR Congo',stage:'Grupo K',utc:'2026-06-17T17:00:00Z',venue:'Houston Stadium, Houston'},
   {home:'England',away:'Croatia',stage:'Grupo L',utc:'2026-06-17T20:00:00Z',venue:'Dallas Stadium, Dallas'},
   {home:'Ghana',away:'Panama',stage:'Grupo L',utc:'2026-06-17T23:00:00Z',venue:'Toronto Stadium, Toronto'},
@@ -2011,12 +2606,12 @@ const WORLD_CUP_2026_FIXTURES = [
   {home:'Mexico',away:'South Korea',stage:'Grupo A',utc:'2026-06-19T01:00:00Z',venue:'Estadio Guadalajara, Zapopan'},
   {home:'Scotland',away:'Morocco',stage:'Grupo C',utc:'2026-06-19T22:00:00Z',venue:'Boston Stadium, Boston'},
   {home:'United States',away:'Australia',stage:'Grupo D',utc:'2026-06-19T19:00:00Z',venue:'Seattle Stadium, Seattle'},
-  {home:'Brazil',away:'Haiti',stage:'Grupo C',utc:'2026-06-20T01:00:00Z',venue:'Philadelphia Stadium, Philadelphia'},
-  {home:'Turkiye',away:'Paraguay',stage:'Grupo D',utc:'2026-06-19T04:00:00Z',venue:'San Francisco Bay Area Stadium, San Francisco'},
+  {home:'Brazil',away:'Haiti',stage:'Grupo C',utc:'2026-06-20T00:30:00Z',venue:'Philadelphia Stadium, Philadelphia'},
+  {home:'Turkiye',away:'Paraguay',stage:'Grupo D',utc:'2026-06-20T03:00:00Z',venue:'San Francisco Bay Area Stadium, San Francisco'},
   {home:'Netherlands',away:'Sweden',stage:'Grupo F',utc:'2026-06-20T17:00:00Z',venue:'Houston Stadium, Houston'},
   {home:'Germany',away:'Ivory Coast',stage:'Grupo E',utc:'2026-06-20T20:00:00Z',venue:'Toronto Stadium, Toronto'},
   {home:'Ecuador',away:'Curacao',stage:'Grupo E',utc:'2026-06-21T00:00:00Z',venue:'Kansas City Stadium, Kansas City'},
-  {home:'Tunisia',away:'Japan',stage:'Grupo F',utc:'2026-06-20T04:00:00Z',venue:'Estadio Monterrey, Guadalupe'},
+  {home:'Tunisia',away:'Japan',stage:'Grupo F',utc:'2026-06-21T04:00:00Z',venue:'Estadio Monterrey, Guadalupe'},
   {home:'Spain',away:'Saudi Arabia',stage:'Grupo H',utc:'2026-06-21T16:00:00Z',venue:'Atlanta Stadium, Atlanta'},
   {home:'Belgium',away:'Iran',stage:'Grupo G',utc:'2026-06-21T19:00:00Z',venue:'Los Angeles Stadium, Los Angeles'},
   {home:'Uruguay',away:'Cape Verde',stage:'Grupo H',utc:'2026-06-21T22:00:00Z',venue:'Miami Stadium, Miami'},
@@ -2024,7 +2619,7 @@ const WORLD_CUP_2026_FIXTURES = [
   {home:'Argentina',away:'Austria',stage:'Grupo J',utc:'2026-06-22T17:00:00Z',venue:'Dallas Stadium, Dallas'},
   {home:'France',away:'Iraq',stage:'Grupo I',utc:'2026-06-22T21:00:00Z',venue:'Philadelphia Stadium, Philadelphia'},
   {home:'Norway',away:'Senegal',stage:'Grupo I',utc:'2026-06-23T00:00:00Z',venue:'New York New Jersey Stadium, New Jersey'},
-  {home:'Jordan',away:'Algeria',stage:'Grupo J',utc:'2026-06-22T03:00:00Z',venue:'San Francisco Bay Area Stadium, San Francisco'},
+  {home:'Jordan',away:'Algeria',stage:'Grupo J',utc:'2026-06-23T03:00:00Z',venue:'San Francisco Bay Area Stadium, San Francisco'},
   {home:'Portugal',away:'Uzbekistan',stage:'Grupo K',utc:'2026-06-23T17:00:00Z',venue:'Houston Stadium, Houston'},
   {home:'England',away:'Ghana',stage:'Grupo L',utc:'2026-06-23T20:00:00Z',venue:'Boston Stadium, Boston'},
   {home:'Panama',away:'Croatia',stage:'Grupo L',utc:'2026-06-23T23:00:00Z',venue:'Toronto Stadium, Toronto'},
@@ -2065,22 +2660,22 @@ const WORLD_CUP_2026_FIXTURES = [
   {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-01T20:00:00Z',venue:'Seattle Stadium, Seattle'},
   {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-02T23:00:00Z',venue:'Toronto Stadium, Toronto'},
   {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-02T19:00:00Z',venue:'Los Angeles Stadium, Los Angeles'},
-  {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-02T03:00:00Z',venue:'BC Place, Vancouver'},
-  {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-03T20:00:00Z',venue:'Atlanta Stadium, Atlanta'},
+  {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-03T03:00:00Z',venue:'BC Place, Vancouver'},
+  {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-03T22:00:00Z',venue:'Miami Stadium, Miami'},
   {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-04T01:30:00Z',venue:'Kansas City Stadium, Kansas City'},
   {home:'A definir',away:'A definir',stage:'Fase de 32',utc:'2026-07-03T18:00:00Z',venue:'Dallas Stadium, Dallas'},
   {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-04T21:00:00Z',venue:'Philadelphia Stadium, Philadelphia'},
   {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-04T17:00:00Z',venue:'Houston Stadium, Houston'},
   {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-05T20:00:00Z',venue:'New York New Jersey Stadium, New Jersey'},
   {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-06T00:00:00Z',venue:'Mexico City Stadium, Mexico City'},
-  {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-06T18:00:00Z',venue:'Dallas Stadium, Dallas'},
-  {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-06T23:00:00Z',venue:'Seattle Stadium, Seattle'},
+  {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-06T19:00:00Z',venue:'Dallas Stadium, Dallas'},
+  {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-07T00:00:00Z',venue:'Seattle Stadium, Seattle'},
   {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-07T16:00:00Z',venue:'Atlanta Stadium, Atlanta'},
   {home:'A definir',away:'A definir',stage:'Oitavas',utc:'2026-07-07T20:00:00Z',venue:'BC Place, Vancouver'},
   {home:'A definir',away:'A definir',stage:'Quartas',utc:'2026-07-09T20:00:00Z',venue:'Boston Stadium, Boston'},
   {home:'A definir',away:'A definir',stage:'Quartas',utc:'2026-07-10T19:00:00Z',venue:'Los Angeles Stadium, Los Angeles'},
   {home:'A definir',away:'A definir',stage:'Quartas',utc:'2026-07-11T21:00:00Z',venue:'Miami Stadium, Miami'},
-  {home:'A definir',away:'A definir',stage:'Quartas',utc:'2026-07-12T00:00:00Z',venue:'Kansas City Stadium, Kansas City'},
+  {home:'A definir',away:'A definir',stage:'Quartas',utc:'2026-07-12T01:00:00Z',venue:'Kansas City Stadium, Kansas City'},
   {home:'A definir',away:'A definir',stage:'Semifinal',utc:'2026-07-14T19:00:00Z',venue:'Dallas Stadium, Dallas'},
   {home:'A definir',away:'A definir',stage:'Semifinal',utc:'2026-07-15T19:00:00Z',venue:'Atlanta Stadium, Atlanta'},
   {home:'A definir',away:'A definir',stage:'3º Lugar',utc:'2026-07-18T21:00:00Z',venue:'Miami Stadium, Miami'},
@@ -2110,6 +2705,7 @@ function importWorldCup2026Fixtures(){
     const id = `wc2026_${String(idx+1).padStart(3,'0')}`;
     const dt = localDateTimeFromUTC(f.utc);
     const previous = (state.games||{})[id] || {};
+    const meta = KNOCKOUT_META[id] || {};
     const fixtureHomeIsTbd = normalizeText(f.home) === 'a definir';
     const fixtureAwayIsTbd = normalizeText(f.away) === 'a definir';
     updates['games/'+id] = {
@@ -2122,6 +2718,11 @@ function importWorldCup2026Fixtures(){
       time: dt.time,
       venue: f.venue,
       sourceUtc: f.utc,
+      matchNumber: meta.matchNumber || previous.matchNumber || null,
+      matchLabel: meta.matchLabel || previous.matchLabel || '',
+      bracketHome: meta.bracketHome || previous.bracketHome || '',
+      bracketAway: meta.bracketAway || previous.bracketAway || '',
+      bracketFull: meta.bracketFull || previous.bracketFull || '',
       timezone: 'America/Sao_Paulo',
       timeLabel: 'Horário de Brasília',
       predictionLockOverride: previous.predictionLockOverride || 'auto',
@@ -2214,7 +2815,7 @@ function renderPlayers(){
 // ─── Points Config ───────────────────────────────────────────────
 function loadPtsUI(){
   const map = {exact:'pts-exact',winner:'pts-winner',goalsTeam:'pts-gteam',diff:'pts-diff',
-    champ:'pts-champ',second:'pts-second',third:'pts-third',top:'pts-top',mvp:'pts-mvp'};
+    champ:'pts-champ',second:'pts-second',third:'pts-third',top:'pts-top',mvp:'pts-mvp',keeper:'pts-keeper'};
   Object.entries(map).forEach(([k,id])=>{ const el=document.getElementById(id); if(el) el.value=state.pts[k]||0; });
 }
 
@@ -2229,12 +2830,13 @@ function savePts(){
     second:+document.getElementById('pts-second').value,
     third:+document.getElementById('pts-third').value,
     top:+document.getElementById('pts-top').value,
-    mvp:+document.getElementById('pts-mvp').value
+    mvp:+document.getElementById('pts-mvp').value,
+    keeper:+document.getElementById('pts-keeper').value
   };
   db.ref('pts').set(pts);
 }
 
-const SPECIAL_KEYS = ['champ','second','third','top','mvp'];
+const SPECIAL_KEYS = ['champ','second','third','top','mvp','keeper'];
 
 // ─── Special Predictions ─────────────────────────────────────────
 function getSpecialDeadline(){
@@ -2347,7 +2949,7 @@ function saveSpecialResults(){
 function calcSpecialBreakdown(pid){
   const pred = (state.special||{})[pid] || {};
   const res = state.specialResults || {};
-  const labels = {champ:'Campeão', second:'Vice-campeão', third:'Terceiro lugar', top:'Artilheiro', mvp:'Melhor jogador'};
+  const labels = {champ:'Campeão', second:'Vice-campeão', third:'Terceiro lugar', top:'Artilheiro', mvp:'Melhor jogador', keeper:'Melhor goleiro'};
   const details = SPECIAL_KEYS.map(k=>{
     const officialFilled = !!String(res[k]||'').trim();
     const userFilled = !!String(pred[k]||'').trim();
@@ -2384,7 +2986,7 @@ function renderAdminSpecialPredictions(){
   const el = document.getElementById('admin-special-list');
   if(!el) return;
   if(!isAdmin){ el.innerHTML=''; return; }
-  const labels = {champ:'Campeão', second:'Vice', third:'3º lugar', top:'Artilheiro', mvp:'Melhor jogador'};
+  const labels = {champ:'Campeão', second:'Vice', third:'3º lugar', top:'Artilheiro', mvp:'Melhor jogador', keeper:'Melhor goleiro'};
   const players = bettingPlayers();
   if(!players.length){ el.innerHTML='<div class="small-note">Nenhum participante cadastrado nos palpites.</div>'; return; }
   el.innerHTML = players.map(p=>{
@@ -2639,14 +3241,14 @@ function renderGameCard(g){
   return `<div class="game-card">
     <div class="game-header">
       <span class="chip">${escapeHTML(g.stage)}</span>
-      <span style="font-size:12px;color:var(--muted)">${dateStr}</span>
+      <span style="font-size:12px;color:var(--muted)">${dateStr}${knockoutMetaHTML(g)}</span>
       <span class="${locked?'locked-pill':'open-pill'}">${locked?'Travado':'Aberto'}</span>
       ${isAdmin?`<div style="display:flex;gap:6px"><button class="btn btn-ghost" onclick="openModal('${g.id}')">editar</button><button class="btn btn-ghost" onclick="removeGame('${g.id}')">🗑</button></div>`:''}
     </div>
     <div class="matchup">
-      <div class="team">${teamHTML(g.home)}</div>
+      <div class="team">${gameTeamHTML(g,'home')}</div>
       <div class="vs-text">VS</div>
-      <div class="team">${teamHTML(g.away)}</div>
+      <div class="team">${gameTeamHTML(g,'away')}</div>
     </div>
     <div class="result-bar">
       <label>RESULTADO:</label>
@@ -2660,7 +3262,7 @@ function renderGameCard(g){
         : '<span style="color:var(--muted);font-size:12px">Aguardando resultado</span>'}
     </div>
     ${g.venue ? `<div class="small-note">📍 ${escapeHTML(g.venue)}</div>` : ''}
-    <div class="small-note">${canPredict ? 'Palpites abertos até 1 hora antes do jogo. Use apenas números inteiros de 0 a 20.' : 'Palpites travados para este jogo.'} ${showOthers ? '' : 'Os palpites dos outros participantes ficam ocultos até o início do jogo.'}</div>
+    <div class="small-note">${predictionDeadlineNote(g)} Use apenas números inteiros de 0 a 20. ${showOthers ? '' : 'Os palpites dos outros participantes ficam ocultos até o início do jogo.'}</div>
     ${currentPlayerIsBetting ? `<div class="preds-label" style="margin-top:8px">MEU PALPITE ${myPredictionSaved?'· ✅ SALVO':'· NÃO SALVO'} ${myPts!==null?`· ${myPts} pts`:''}</div>${myPredictionBox}` : '<div class="small-note" style="margin-top:8px">Admin não participa dos palpites.</div>'}
     ${players.length > (currentPlayerIsBetting ? 1 : 0)
       ? `<button class="btn btn-outline pred-toggle" onclick="togglePredictions('${g.id}')">${predOpen?'Ocultar palpites dos outros':'Ver palpites'} (${players.length-(currentPlayerIsBetting?1:0)})</button>${predOpen?`<div class="preds-label" style="margin-top:8px">PALPITES</div>${otherPredRows}`:''}`
@@ -2870,13 +3472,18 @@ function renderPhaseReferenceMatch(g){
   const saved = myPred.home !== undefined && myPred.home !== '' && myPred.away !== undefined && myPred.away !== '';
   const myPts = currentPlayerIsBetting ? calcPoints(g.id, myId) : null;
   const dateTime = `${escapeHTML(gameDateOnly(g))} ${escapeHTML(gameHourOnly(g))}`.trim();
-  return `<div class="phase-ref-match">
-    <div class="phase-ref-time">${dateTime}<div class="brt-note">Horário de Brasília</div></div>
+  const gStatus = getGameDisplayStatus(g);
+  const statusBadge = gStatus.label ? `<span class="game-status-badge ${gStatus.css}">${gStatus.label}</span> ` : '';
+  const deadlineNote = predictionDeadlineNote(g);
+  const deadlineNoteClass = canEditPrediction(g) ? 'open' : 'locked';
+  return `<div class="phase-ref-match${gStatus.status==='live'||gStatus.status==='halftime'?' phase-ref-live':''}">
+    <div class="phase-ref-time">${statusBadge}${dateTime}<div class="brt-note">Horário de Brasília</div>${knockoutMetaHTML(g)}</div>
     <div class="phase-ref-body">
       <div class="phase-ref-team phase-ref-home">
-        ${teamFlagHTML(g.home,'phase-ref-flag')}
-        <div class="phase-ref-code">${teamCode(g.home)}</div>
+        ${gameFlagHTML(g,'home','phase-ref-flag')}
+        <div class="phase-ref-code">${escapeHTML(displayTeamCode(g,'home'))}</div>
         ${renderTeamNameOrAdminSelect(g.id, 'home', g.home)}
+        ${getKnockoutMeta(g) && isTbdTeam(g.home) ? `<div class="bracket-helper-note">${escapeHTML(displayTeamName(g,'home'))}</div>` : ''}
       </div>
       <div class="phase-ref-center">
         ${currentPlayerIsBetting ? `<div class="phase-ref-score">
@@ -2885,13 +3492,15 @@ function renderPhaseReferenceMatch(g){
           <input id="pred-away-${g.id}" type="number" min="0" max="20" step="1" inputmode="numeric" value="${myPred.away??''}" placeholder="" ${canPredict?'':'readonly'} oninput="markPredictionDirty('${g.id}')">
         </div>
         <button class="phase-ref-save" ${canPredict?'':'disabled'} onclick="saveGamePrediction('${g.id}')">Salvar</button>
-        <div id="pred-save-msg-${g.id}" class="phase-ref-status ${saved?'saved':''}">${myPts!==null?`${myPts} pts`:saved?'Palpite salvo':'Não salvo'}</div>` : (isAdmin ? `<div class="phase-ref-score">
+        <div id="pred-save-msg-${g.id}" class="phase-ref-status ${saved?'saved':''}">${myPts!==null?`${myPts} pts`:saved?'Palpite salvo':'Não salvo'}</div>
+        <div class="prediction-deadline-note ${deadlineNoteClass}">${escapeHTML(deadlineNote)}</div>` : (isAdmin ? `<div class="phase-ref-score">
           <input type="number" min="0" max="20" step="1" inputmode="numeric" value="${g.actualHome??''}" placeholder="?" oninput="setActual('${g.id}','home',this.value)">
           <span class="phase-ref-vs">vs</span>
           <input type="number" min="0" max="20" step="1" inputmode="numeric" value="${g.actualAway??''}" placeholder="?" oninput="setActual('${g.id}','away',this.value)">
         </div>
-        <div class="phase-ref-status saved">Admin: lançar resultado final</div>` : `<div class="phase-ref-score"><span class="phase-ref-vs">vs</span></div><div class="phase-ref-status">Admin não participa</div>`)}
-        ${hasResult ? `<div class="phase-ref-result">Resultado: ${g.actualHome} × ${g.actualAway}</div>` : ''}
+        <div class="phase-ref-status saved">Admin: lançar resultado final</div>
+        <div class="prediction-deadline-note ${deadlineNoteClass}">${escapeHTML(deadlineNote)}</div>` : `<div class="phase-ref-score"><span class="phase-ref-vs">vs</span></div><div class="phase-ref-status">Admin não participa</div>`)}
+        ${gameResultOrLiveHTML(g)}
         ${isAdmin ? `<div class="phase-admin-tools only-edit">
           <button class="btn btn-outline phase-admin-edit" type="button" onclick="openModal('${g.id}')">Editar jogo</button>
           <button class="btn btn-danger phase-admin-edit" type="button" onclick="removeGame('${g.id}')">Deletar jogo</button>
@@ -2899,9 +3508,10 @@ function renderPhaseReferenceMatch(g){
         <button class="phase-ref-preds-btn" type="button" onclick="openPredictionsModal('${g.id}')">Ver palpites</button>
       </div>
       <div class="phase-ref-team phase-ref-away">
-        ${teamFlagHTML(g.away,'phase-ref-flag')}
-        <div class="phase-ref-code">${teamCode(g.away)}</div>
+        ${gameFlagHTML(g,'away','phase-ref-flag')}
+        <div class="phase-ref-code">${escapeHTML(displayTeamCode(g,'away'))}</div>
         ${renderTeamNameOrAdminSelect(g.id, 'away', g.away)}
+        ${getKnockoutMeta(g) && isTbdTeam(g.away) ? `<div class="bracket-helper-note">${escapeHTML(displayTeamName(g,'away'))}</div>` : ''}
       </div>
     </div>
   </div>`;
@@ -3020,7 +3630,7 @@ function renderWorldCupTable(){
   const knockoutHTML = phaseNames.map(phase=>{
     const phaseGames = games.filter(g=>String(g.stage||'')===phase);
     return `<div class="section"><div class="section-title">${phase==='Fase de 32'?'Fase de 32 / Segunda rodada':phase}</div><div class="phase-grid">
-      ${phaseGames.map(g=>`<div class="phase-card"><div class="phase-card-title">${formatGameDateTime(g)}${g.venue?' · '+escapeHTML(g.venue):''}</div><div class="phase-card-match">${teamInlineHTML(g.home)} ${hasGameResult(g)?`${g.actualHome} x ${g.actualAway}`:'x'} ${teamInlineHTML(g.away)}</div></div>`).join('') || '<div class="small-note">Sem jogos cadastrados.</div>'}
+      ${phaseGames.map(g=>`<div class="phase-card"><div class="phase-card-title">${formatGameDateTime(g)}${g.venue?' · '+escapeHTML(g.venue):''}${knockoutMetaHTML(g)}</div><div class="phase-card-match">${gameTeamInlineHTML(g,'home')} ${hasGameResult(g)?`${g.actualHome} x ${g.actualAway}`:'x'} ${gameTeamInlineHTML(g,'away')}</div></div>`).join('') || '<div class="small-note">Sem jogos cadastrados.</div>'}
     </div></div>`;
   }).join('');
   el.innerHTML = `<div class="notice">A tabela atualiza automaticamente conforme o admin lança os resultados. A Copa 2026 tem 12 grupos de 4 seleções; avançam os 2 primeiros de cada grupo e os 8 melhores terceiros.</div><div class="standings-grid">${groupHTML}</div>${knockoutHTML}`;
@@ -3033,7 +3643,7 @@ function renderRules(){
     <div><strong>2. Limite dos placares:</strong> os palpites dos jogos aceitam apenas números de 0 a 20 para cada seleção.</div>
     <div><strong>3. Visibilidade dos palpites:</strong> os palpites dos outros participantes ficam ocultos até o início do jogo.</div>
     <div><strong>4. Pontuação cumulativa:</strong> em cada jogo, os pontos acumulam entre placar exato, vencedor/empate, gols exatos de cada time e diferença de gols.</div>
-    <div><strong>5. Palpites especiais:</strong> campeão, vice, terceiro lugar, artilheiro e melhor jogador. Eles só pontuam quando o admin preencher os resultados oficiais.</div>
+    <div><strong>5. Palpites especiais:</strong> campeão, vice, terceiro lugar, artilheiro, melhor jogador e melhor goleiro. Eles só pontuam quando o admin preencher os resultados oficiais.</div>
     <div><strong>6. Formato Copa 2026:</strong> 48 seleções, 12 grupos de 4, fase de 32, oitavas, quartas, semifinais, disputa de 3º lugar e final.</div>
   </div></div>
   <div class="section"><div class="section-title">🎯 Pontuação dos jogos</div>
@@ -3057,6 +3667,7 @@ function renderRules(){
         <tr><td>Terceiro lugar</td><td>${state.pts.third}</td></tr>
         <tr><td>Artilheiro</td><td>${state.pts.top}</td></tr>
         <tr><td>Melhor jogador</td><td>${state.pts.mvp}</td></tr>
+        <tr><td>Melhor goleiro</td><td>${state.pts.keeper}</td></tr>
       </tbody>
     </table>
     <div class="small-note">Os palpites especiais só entram no ranking depois que o admin preencher os resultados finais oficiais.</div>
@@ -3140,6 +3751,258 @@ function renderRanking(){
   el.innerHTML = podiumHTML + listHTML;
   lastRankPositions = Object.fromEntries(ranked.map((p,i)=>[p.id,i]));
   rankingInitialized = true;
+}
+
+// ─── Football-Data.org Live Scores ──────────────────────────────
+const FOOTBALL_API_KEY = 'd1a0706b60fa4d888e0a789fedab6def';
+const FOOTBALL_API_BASE = 'https://api.football-data.org/v4';
+const FOOTBALL_COMP = 'WC';
+
+function getTodayBrazil(){
+  const p = new Intl.DateTimeFormat('en-CA',{
+    timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'
+  }).formatToParts(new Date()).reduce((a,x)=>{a[x.type]=x.value;return a},{});
+  return `${p.year}-${p.month}-${p.day}`;
+}
+
+function findLocalGameId(apiMatch){
+  // Strategy 1: Match by sourceUtc (most reliable for imported games)
+  const utcDate = apiMatch.utcDate;
+  if(utcDate){
+    for(const g of Object.values(state.games||{})){
+      if(g.sourceUtc && g.sourceUtc === utcDate) return g.id;
+    }
+  }
+  // Strategy 2: Match by team TLA codes + Brasília date
+  const homeTLA = apiMatch.homeTeam?.tla || '';
+  const awayTLA = apiMatch.awayTeam?.tla || '';
+  if(homeTLA && awayTLA && utcDate){
+    const dt = localDateTimeFromUTC(utcDate);
+    for(const g of Object.values(state.games||{})){
+      if(g.date === dt.date){
+        const localH = teamCode(g.home);
+        const localA = teamCode(g.away);
+        if(localH === homeTLA && localA === awayTLA) return g.id;
+        if(localA === homeTLA && localH === awayTLA) return g.id;
+      }
+    }
+  }
+  return null;
+}
+
+let apiCorsBlocked = false;
+
+async function fetchFootballAPI(endpoint){
+  try{
+    const resp = await fetch(`${FOOTBALL_API_BASE}${endpoint}`,{
+      headers:{'X-Auth-Token':FOOTBALL_API_KEY}
+    });
+    if(!resp.ok){
+      const text = await resp.text().catch(()=>'');
+      throw new Error(`API ${resp.status}: ${text.slice(0,200)}`);
+    }
+    apiCorsBlocked = false;
+    return resp.json();
+  }catch(err){
+    if(err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.name === 'TypeError'){
+      if(!apiCorsBlocked){
+        apiCorsBlocked = true;
+        console.warn('Football-Data.org bloqueado por CORS. Sirva o app via http://localhost para ativar placar ao vivo.');
+      }
+      throw new Error('CORS');
+    }
+    throw err;
+  }
+}
+
+function getGameDisplayStatus(g){
+  const api = liveAPIData[g.id];
+  const hasResult = g.actualHome!=null && g.actualAway!=null;
+  const now = new Date();
+  const start = getGameStart(g);
+
+  if(api){
+    if(api.status==='IN_PLAY') return {status:'live',label:'AO VIVO',css:'game-status-live'};
+    if(api.status==='PAUSED') return {status:'halftime',label:'INTERVALO',css:'game-status-halftime'};
+    if(api.status==='FINISHED') return {status:'finished',label:'ENCERRADO',css:'game-status-finished'};
+    if(api.status==='SUSPENDED') return {status:'suspended',label:'SUSPENSO',css:'game-status-halftime'};
+  }
+
+  if(hasResult) return {status:'finished',label:'ENCERRADO',css:'game-status-finished'};
+
+  if(start){
+    const diffMin = (start.getTime() - now.getTime()) / 60000;
+    if(diffMin <= 0 && diffMin > -150) return {status:'live',label:'EM ANDAMENTO',css:'game-status-live'};
+    if(diffMin > 0 && diffMin <= 60) return {status:'upcoming',label:'EM BREVE',css:'game-status-upcoming'};
+    const todayBR = getTodayBrazil();
+    if(g.date === todayBR) return {status:'today',label:'HOJE',css:'game-status-today'};
+  }
+
+  return {status:'scheduled',label:'',css:''};
+}
+
+function getAPIScore(gid){
+  const d = liveAPIData[gid];
+  if(!d || d.homeScore==null || d.awayScore==null) return null;
+  if(!['IN_PLAY','PAUSED','FINISHED','SUSPENDED'].includes(d.status)) return null;
+  return {home:d.homeScore, away:d.awayScore, minute:d.minute};
+}
+
+function gameResultOrLiveHTML(g){
+  const hasResult = hasGameResult(g);
+  if(hasResult) return `<div class="phase-ref-result">Resultado: ${g.actualHome} × ${g.actualAway}</div>`;
+  const gStatus = getGameDisplayStatus(g);
+  const liveScore = getAPIScore(g.id);
+  if(liveScore && (gStatus.status==='live' || gStatus.status==='halftime')){
+    const minuteHTML = liveScore.minute ? ` <span class="live-minute">${liveScore.minute}'</span>` : '';
+    return `<div class="phase-ref-livescore">🔴 ${liveScore.home} × ${liveScore.away}${minuteHTML}</div>`;
+  }
+  return '';
+}
+
+async function updateFromAPI(){
+  try{
+    const today = new Date().toISOString().slice(0,10);
+    const yesterday = new Date(Date.now()-86400000).toISOString().slice(0,10);
+    const tomorrow = new Date(Date.now()+86400000).toISOString().slice(0,10);
+    const data = await fetchFootballAPI(`/competitions/${FOOTBALL_COMP}/matches?dateFrom=${yesterday}&dateTo=${tomorrow}`);
+
+    if(!data || !data.matches){
+      updateAPIStatusUI(); return;
+    }
+
+    const fbUpdates = {};
+
+    for(const m of data.matches){
+      const gid = findLocalGameId(m);
+      if(!gid) continue;
+
+      const ft = m.score?.fullTime || {};
+      const ht = m.score?.halfTime || {};
+      let hs = ft.home ?? ht.home ?? null;
+      let as_ = ft.away ?? ht.away ?? null;
+
+      liveAPIData[gid] = {
+        status: m.status,
+        homeScore: hs,
+        awayScore: as_,
+        minute: m.minute || null,
+        lastUpdated: new Date()
+      };
+
+      // Auto-populate finished games into Firebase
+      if(m.status === 'FINISHED' && ft.home != null && ft.away != null){
+        const g = state.games[gid];
+        if(g && (g.actualHome == null || g.actualHome === undefined)){
+          fbUpdates['games/'+gid+'/actualHome'] = ft.home;
+          fbUpdates['games/'+gid+'/actualAway'] = ft.away;
+        }
+      }
+
+      // Auto-update knockout team names from API if local game still has "A definir"
+      if(m.homeTeam?.name && m.awayTeam?.name){
+        const g = state.games[gid];
+        if(g){
+          if(normalizeText(g.home)==='a definir' && normalizeText(m.homeTeam.name)!=='a definir'){
+            fbUpdates['games/'+gid+'/home'] = m.homeTeam.name;
+          }
+          if(normalizeText(g.away)==='a definir' && normalizeText(m.awayTeam.name)!=='a definir'){
+            fbUpdates['games/'+gid+'/away'] = m.awayTeam.name;
+          }
+        }
+      }
+    }
+
+    if(Object.keys(fbUpdates).length > 0){
+      db.ref().update(fbUpdates).catch(err=>console.warn('Auto-populate error:',err));
+    }
+
+    lastAPIFetchTime = new Date();
+    renderLiveTicker();
+    renderGames();
+    updateAPIStatusUI();
+  }catch(err){
+    if(err.message === 'CORS'){
+      updateAPIStatusUI('cors');
+      // Stop polling when CORS blocked - no point retrying
+      stopLivePolling();
+      return;
+    }
+    console.warn('Football API error:',err.message);
+    updateAPIStatusUI(err.message);
+  }
+}
+
+function updateAPIStatusUI(error){
+  const el = document.getElementById('api-status-label');
+  if(!el) return;
+  if(error === 'cors'){
+    el.textContent = 'Placar: abra via localhost';
+    el.title = 'Abra o app via http://localhost para ativar placar ao vivo. Execute: npx serve';
+    el.style.color = '#d97706';
+    return;
+  }
+  if(error){
+    el.textContent = 'API: erro';
+    el.title = error;
+    el.style.color = 'var(--red)';
+  }else if(lastAPIFetchTime){
+    const t = lastAPIFetchTime.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    el.textContent = `Placar: ${t}`;
+    el.title = 'Última atualização do placar ao vivo';
+    el.style.color = 'var(--muted)';
+  }
+}
+
+function renderLiveTicker(){
+  const el = document.getElementById('live-ticker');
+  if(!el) return;
+
+  const items = [];
+  for(const g of sortedGames()){
+    const api = liveAPIData[g.id];
+    if(!api) continue;
+    const isLive = ['IN_PLAY','PAUSED'].includes(api.status);
+    const isFin = api.status === 'FINISHED';
+    if(!isLive && !isFin) continue;
+
+    const score = getAPIScore(g.id);
+    const scoreText = score ? `${score.home} × ${score.away}` : '—';
+    const minuteText = isLive && score?.minute ? `${score.minute}'` : '';
+    const statusLabel = isLive ? (api.status==='PAUSED' ? 'INT' : (minuteText||'AO VIVO')) : 'FIM';
+    const badgeCss = isLive ? 'game-status-live' : 'game-status-finished';
+
+    items.push({isLive, html:`<div class="live-ticker-item ${isLive?'is-live':'is-finished'}">
+      <span class="game-status-badge ${badgeCss}" style="padding:2px 6px;font-size:9px">${statusLabel}</span>
+      <span>${escapeHTML(teamCode(g.home))}</span>
+      <span class="live-ticker-score">${scoreText}</span>
+      <span>${escapeHTML(teamCode(g.away))}</span>
+    </div>`});
+  }
+
+  if(!items.length){ el.style.display='none'; return; }
+  items.sort((a,b)=>a.isLive===b.isLive?0:a.isLive?-1:1);
+
+  el.style.display='flex';
+  el.innerHTML = `<span class="live-ticker-label">⚽ Placar ao vivo</span>${items.map(i=>i.html).join('')}`;
+}
+
+function startLivePolling(){
+  if(livePollingTimer) return;
+  // Initial fetch after a short delay to let Firebase load first
+  setTimeout(()=>updateFromAPI(), 3000);
+  // Poll every 60 seconds (well within 10 req/min free tier)
+  livePollingTimer = setInterval(()=>updateFromAPI(), 60000);
+}
+
+function stopLivePolling(){
+  if(livePollingTimer){ clearInterval(livePollingTimer); livePollingTimer=null; }
+}
+
+function manualAPIRefresh(){
+  const btn = document.querySelector('.api-refresh-btn');
+  if(btn){ btn.textContent='...'; setTimeout(()=>{btn.textContent='↻';},1500); }
+  updateFromAPI();
 }
 
 // ─── Init ─────────────────────────────────────────────────────────
